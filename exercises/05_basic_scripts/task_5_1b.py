@@ -50,3 +50,7 @@ london_co = {
         "routing": True,
     },
 }
+device = input('Pick device, please: ' )
+pick = list(london_co[device].keys())
+parametr = input('Pick parametr from (' + ", ".join(pick) +'), please: ')
+print(london_co[device][parametr])
