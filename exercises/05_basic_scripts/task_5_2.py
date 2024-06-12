@@ -30,3 +30,20 @@ Out[1]: '11111111111111111111111111110000'
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 """
+
+ip = input('Input network: ')
+network = ip.split('/')[0].split('.')
+mask = ip.split('/')[1]
+bin_mask = "1" * int(mask) + "0" * (32 - int(mask))
+dec_mask = [int(bin_mask[:8], 2), int(bin_mask[8:16], 2), int(bin_mask[16:24], 2), int(bin_mask[24:], 2)]
+ip_template = '''
+{0:<10}{1:<10}{2:<10}{3:<10}
+{0:08b}  {1:08b}  {2:08b}  {3:08b}
+'''
+mask_template = '''
+{0:<10}{1:<10}{2:<10}{3:<10}
+{0:08b}  {1:08b}  {2:08b}  {3:08b}
+'''
+print('Network:' + ip_template.format(int(network[0]), int(network[1]), int(network[2]), int(network[3])))
+
+print('Mask:\n' + '/' + mask + mask_template.format(int(dec_mask[0]), int(dec_mask[1]), int(dec_mask[2]), int(dec_mask[3])))
