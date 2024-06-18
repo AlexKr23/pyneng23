@@ -12,14 +12,17 @@
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 """
-ip = input('Введите ip-адрес: ')
-if 1 <= int(ip.split('.')[0]) <= 223:
-    print('unicast')
-elif 224 <= int(ip.split('.')[0]) <= 239:
-    print('multicast')
-elif int(ip.split('.')[0]) == int(ip.split('.')[1]) == int(ip.split('.')[2]) == int(ip.split('.')[3]) == 255:
-    print('local broadcast')       
-elif int(ip.split('.')[0]) == int(ip.split('.')[1]) == int(ip.split('.')[2]) == int(ip.split('.')[3]) == 0:
-    print('unassigned')                                                                           
+
+ip_address = input("введите ip-адрес: ")
+oct1 = int(ip_address.split(".")[0])
+
+if ip_address == "255.255.255.255":
+    print("local broadcast")
+elif ip_address == "0.0.0.0":
+    print("unassigned")
+elif 1 <= oct1 <= 223:
+    print("unicast")
+elif 224 <= oct1 <= 239:
+    print("multicast")
 else:
-    print('unused') 
+    print("unused")
