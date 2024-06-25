@@ -21,10 +21,9 @@
 
 """
 
-# file_in = argv[1]
-with open('/home/alexk/pyneng/repos/pyneng23/exercises/07_files/CAM_table.txt') as f:
-    for line in f:
+with open("CAM_table.txt") as conf:
+    for line in conf:
         words = line.split()
-        if words and words[0].isdigit(): 
-            vlan, mac, _, interface = words # назначение str из list
+        if words and words[0].isdigit():
+            vlan, mac, _, interface = words
             print(f"{vlan:9}{mac:20}{interface}")

@@ -40,3 +40,22 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 """
+vlans = []
+with open('/home/alexk/pyneng/repos/pyneng23/exercises/07_files/CAM_table.txt') as f:
+    for line in f:
+        inner = []
+        words = line.split()
+        if words and words[0].isdigit(): 
+#            for i in words:
+#                if i.isdigit():
+#                    inner.append(int(i))
+#                elif i.isalpha():
+#                    continue
+#                else:
+#                    inner.append(i)
+#            if inner:
+#                vlan.append(inner)
+            vlan, mac, _, interface = words # назначение str из list
+            vlans.append([int(vlan), mac, interface]) # добавляем сроки в лист согласно порядку        
+for vlan, mac, interface in sorted(vlans):
+    print(f"{vlan:<9}{mac:20}{interface}")

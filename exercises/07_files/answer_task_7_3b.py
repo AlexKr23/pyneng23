@@ -17,14 +17,11 @@ Enter VLAN number: 10
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 """
-user_pick = input('Выберите VLAN: ')
-mac_table = []
-with open('/home/alexk/pyneng/repos/pyneng23/exercises/07_files/CAM_table.txt') as f:
-    for line in f:
+user_vlan = input("Enter VLAN number: ")
+
+with open("CAM_table.txt", "r") as conf:
+    for line in conf:
         words = line.split()
-        if words and words[0].isdigit(): 
-            vlan, mac, _, interface = words # назначение str из list
-            if vlan == user_pick:
-                mac_table.append([int(vlan), mac, interface]) # добавляем сроки в лист согласно порядку        
-for vlan, mac, interface in sorted(mac_table):
-    print(f"{vlan:<9}{mac:20}{interface}")
+        if words and words[0].isdigit() and words[0] == user_vlan:
+            vlan, mac, _, intf = words
+            print(f"{vlan:9}{mac:20}{intf}")

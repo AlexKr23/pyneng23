@@ -23,3 +23,4 @@ elif int(ip.split('.')[0]) == int(ip.split('.')[1]) == int(ip.split('.')[2]) == 
     print('unassigned')                                                                           
 else:
     print('unused') 
+    

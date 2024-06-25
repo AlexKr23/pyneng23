@@ -21,9 +21,10 @@ ignore = ["duplex", "alias", "configuration"]
 
 filename = argv[1]
 
-with open('/home/alexk/pyneng/repos/pyneng23/exercises/07_files/config_sw1.txt') as f:
+with open(filename) as f:
     for line in f:
         words = line.split()
         words_intersect = set(words) & set(ignore)
-        if not line.startswith("!") and not words_intersect: # проверка что строка не начинается в '!', а также что множество пусто
+        if not line.startswith("!") and not words_intersect:
             print(line.rstrip())
+

@@ -14,17 +14,18 @@ Outbound Interface    FastEthernet0/0
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 """
-ospf_list = []
-with open('/home/alexk/pyneng/repos/pyneng23/exercises/07_files/ospf.txt') as osfp:
-    for line in osfp:
-        ospf_list.append(line.replace(",", " ").replace("[", "").replace("]", "").split())
 
 output = "\n{:25} {}" * 5
-for row in ospf_list:   
-    print(output.format(
-            "Prefix", row[1],
-            "AD/Metric", row[2],
-            "Next-Hop", row[4],
-            "Last update", row[5],
-            "Outbound Interface", row[6],
-    ))
+
+with open("ospf.txt", "r") as f:
+    for line in f:
+        route = line.replace(",", " ").replace("[", "").replace("]", "")
+        route = route.split()
+
+        print(output.format(
+                "Prefix", route[1],
+                "AD/Metric", route[2],
+                "Next-Hop", route[4],
+                "Last update", route[5],
+                "Outbound Interface", route[6],
+        ))
