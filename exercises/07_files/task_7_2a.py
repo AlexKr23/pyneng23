@@ -19,7 +19,7 @@ from sys import argv
 
 ignore = ["duplex", "alias", "configuration"]
 
-filename = argv[1]
+#filename = argv[1]
 
 with open('/home/alexk/pyneng/repos/pyneng23/exercises/07_files/config_sw1.txt') as f:
     for line in f:

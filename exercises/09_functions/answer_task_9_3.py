@@ -23,30 +23,18 @@
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 """
-from sys import argv
 
 def get_int_vlan_map(config_filename):
-    """
-    Функция обрабатывает конфиг коммутатора и создате кортеж с двумя словарями,
-    для access и для trunk
-    """
-    output = tuple()
-    with open(config_filename) as f:
-        temp = []
-        access = {}
-        trunk = {}
-        for row in f:
-            if row.startswith('interface F') or 'access vlan' in row or 'trunk allowed' in row:
-                temp.append(row.rstrip())
-        for i in range(0, len(temp), 2):
-            if i + 1 == len(temp):
-                break
-            elif 'access' in temp[i + 1]:
-                access[temp[i].split()[-1]] = int(temp[i + 1].split()[-1])
-            elif 'trunk' in temp[i + 1]:
-                trunk[temp[i].split()[-1]] = [int(x) for x in temp[i + 1].split()[-1].split(',')]
-        output = (access, trunk)    
-    return output
+    access_dict = {}
+    trunk_dict = {}
 
-
-print(get_int_vlan_map('/home/alexk/pyneng/repos/pyneng23/exercises/09_functions/config_sw1.txt'))
+    with open(config_filename) as cfg:
+        for line in cfg:
+            line = line.rstrip()
+            if line.startswith("interface"):
+                intf = line.split()[1]
+            elif "access vlan" in line:
+                access_dict[intf] = int(line.split()[-1])
+            elif "trunk allowed" in line:
+                trunk_dict[intf] = [int(v) for v in line.split()[-1].split(",")]
+        return access_dict, trunk_dict

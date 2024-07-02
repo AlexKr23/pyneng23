@@ -26,27 +26,25 @@
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 """
 
-from sys import argv
-
 def get_int_vlan_map(config_filename):
-    """
-    Функция обрабатывает конфиг коммутатора и создает кортеж с двумя словарями,
-    для access и для trunk
-    """
-
+    access_port_dict = {}
+    trunk_port_dict = {}
     with open(config_filename) as f:
-        access = {}
-        trunk = {}
-        for row in f:
-            if row.startswith('interface '):
-                intf = row.split()[-1]
-            elif 'access vlan' in row:
-                access.update({intf: int(row.split()[-1])})
-            elif 'access' in row:
-                access[intf] = 1
-            elif 'trunk allowed' in row:
-                trunk[intf] = [int(v) for v in row.split()[-1].split(',')]
-    return access, trunk
+        for line in f:
+            if line.startswith("interface FastEthernet"):
+                current_interface = line.split()[-1]
+                # Сразу указываем, что интерфейсу
+                # соответствует 1 влан в access_port_dict
+                access_port_dict[current_interface] = 1
+            elif "switchport access vlan" in line:
+                # если нашлось другое значение VLAN,
+                # оно перепишет предыдущее соответствие
+                access_port_dict[current_interface] = int(line.split()[-1])
+            elif "switchport trunk allowed vlan" in line:
+                vlans = [int(i) for i in line.split()[-1].split(",")]
+                trunk_port_dict[current_interface] = vlans
+                # если встретилась команда trunk allowed vlan
+                # надо удалить интерфейс из словаря access_port_dict
+                del access_port_dict[current_interface]
+    return access_port_dict, trunk_port_dict
 
-
-print(get_int_vlan_map('/home/alexk/pyneng/repos/pyneng23/exercises/09_functions/config_sw2.txt'))

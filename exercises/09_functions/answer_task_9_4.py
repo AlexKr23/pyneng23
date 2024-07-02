@@ -65,23 +65,17 @@ def ignore_command(command, ignore):
             ignore_status = True
     return ignore_status
 
+
 def convert_config_to_dict(config_filename):
-    """
-    Функция обрабатывает конфиг коммутатора и создает кортеж с двумя словарями,
-    для access и для trunk
-    """
-
+    config_dict = {}
     with open(config_filename) as f:
-        config = {}
-        for row in f:
-            row = row.rstrip()
-            if row and not row.startswith('!') and not ignore_command(row, ignore):
-                if not row.startswith(' ') and row:
-                    key = row
-                    config.setdefault(key, [])
+        for line in f:
+            line = line.rstrip()
+            if line and not (line.startswith("!") or ignore_command(line, ignore)):
+                if line[0].isalnum():
+                    section = line
+                    config_dict[section] = []
                 else:
-                    config[key].append(row.strip())
-            
-    return config
+                    config_dict[section].append(line.strip())
+    return config_dict
 
-print(convert_config_to_dict('/home/alexk/pyneng/repos/pyneng23/exercises/09_functions/config_sw1.txt'))
