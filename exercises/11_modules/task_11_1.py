@@ -43,8 +43,20 @@ def parse_cdp_neighbors(command_output):
     и с файлами и с выводом с оборудования.
     Плюс учимся работать с таким выводом.
     """
+    topo = {}
+    command_output = command_output.strip().split('\n')
+    for s in command_output:
+        s = s.strip()
+        if '>show' in s:
+            hostname = s.split('>')[0]
+        elif s and not s.startswith('Capability') and not s.startswith('S - Switch') and not s.startswith('Device ID'):
+            s = s.split()
+            tuple_keys = (hostname, str(s[1]) + str(s[2]))
+            tuple_value = (s[0], s[-2] + s[-1])
+            topo[tuple_keys] = (tuple_value)
+    return topo    
 
 
 if __name__ == "__main__":
-    with open("sh_cdp_n_sw1.txt") as f:
+    with open("/home/alexk/pyneng/repos/pyneng23/exercises/11_modules/sh_cdp_n_sw1.txt") as f:
         print(parse_cdp_neighbors(f.read()))

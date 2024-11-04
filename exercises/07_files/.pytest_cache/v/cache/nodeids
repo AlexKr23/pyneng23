@@ -1,0 +1,10 @@
+[
+  "test_task_7_1.py::test_task",
+  "test_task_7_2.py::test_task",
+  "test_task_7_2a.py::test_task",
+  "test_task_7_2b.py::test_task",
+  "test_task_7_3.py::test_task_stdout",
+  "test_task_7_3a.py::test_task_stdout",
+  "test_task_7_3b.py::test_task_stdout[vlan 1000]",
+  "test_task_7_3b.py::test_task_stdout[vlan 10]"
+]

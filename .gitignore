@@ -37,5 +37,8 @@ Thumbs.db
 # Virual environments
 venv/
 
+# ignore /img folders
+img/
+
 build/
 pyneng.egg-info/

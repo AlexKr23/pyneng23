@@ -17,3 +17,23 @@ IP-адрес считается доступным, если выполнени
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 """
+
+import subprocess
+
+ip_addresses = ["1.1.1.1", "8.8.8.8", "8.8.4.4", "8.8.7.1"]
+
+def ping_ip_addresses(ip_list):
+    """
+    Проверка доступности хоста для ICMP
+    """
+    result = ([], [])
+    for ip in ip_list:
+        reply = subprocess.run(['ping', '-c', '3', '-n', ip], stdout=subprocess.DEVNULL)
+        if reply.returncode == 0:
+            result[0].append(ip)
+        else:
+            result[1].append(ip)
+    return result
+
+#if __name__ == "__main__":
+#    print(ping_ip_addresses(ip_addresses))    

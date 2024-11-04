@@ -28,9 +28,26 @@ Cгенерировать топологию, которая соответст�
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 """
+from task_11_1 import parse_cdp_neighbors
+
 infiles = [
     "sh_cdp_n_sw1.txt",
     "sh_cdp_n_r1.txt",
     "sh_cdp_n_r2.txt",
     "sh_cdp_n_r3.txt",
 ]
+
+def create_network_map(filenames):
+    """
+    Функция строт сетевую топологию на основе вывода CDP соседства
+    """
+    topo = {}
+    for device in filenames:
+        with open("/home/alexk/pyneng/repos/pyneng23/exercises/11_modules/" + device) as f:
+            parsed = parse_cdp_neighbors(f.read())
+            topo.update(parsed)
+    return topo
+
+if __name__ == "__main__":
+    print(create_network_map(infiles))
+  
