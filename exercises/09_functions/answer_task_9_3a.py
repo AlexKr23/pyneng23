@@ -48,3 +48,5 @@ def get_int_vlan_map(config_filename):
                 del access_port_dict[current_interface]
     return access_port_dict, trunk_port_dict
 
+
+print(get_int_vlan_map('/home/alexk/pyneng/repos/pyneng23/exercises/09_functions/config_sw2.txt'))
